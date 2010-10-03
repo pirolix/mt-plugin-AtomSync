@@ -42,7 +42,7 @@ sub _entry_post_save {
     my $entry = $ctx->stash ('entry')
         or return 1;
     my $blog = $ctx->stash ('blog');
-    my $settings = &instance->get_config_value ('xmlrpc_settings', "blog:". $blog->id)
+    my $settings = &instance->get_config_value ('atom_settings', "blog:". $blog->id)
         or return 1; # no settings
 
     my $tmpl = MT::Template->load ({ blog_id => $blog->id, name => $MYNAME })
