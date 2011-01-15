@@ -8,7 +8,7 @@ use XML::Atom::Client;
 
 use vars qw( $MYNAME $VERSION );
 $MYNAME = 'AtomSync';
-$VERSION = '0.10';
+$VERSION = '0.11';
 
 use base qw( MT::Plugin );
 my $plugin = __PACKAGE__->new({
@@ -47,9 +47,9 @@ sub _entry_post_save {
 
     my $tmpl = MT::Template->load ({ blog_id => $blog->id, name => $MYNAME })
         or return 1;
-    my $ctx = $tmpl->context;
-    $ctx->stash ('blog', $blog);
-    $ctx->stash ('entry', $entry);
+    my $tmpl_ctx = $tmpl->context;
+    $tmpl_ctx->stash ('blog', $blog);
+    $tmpl_ctx->stash ('entry', $entry);
     my ($title, $body) = $tmpl->output =~ m/(.+)\s+([\s\S]+)/;
 
     my $pdata = load_plugindata (key_name ($entry->id)) || {};
@@ -99,4 +99,3 @@ sub load_plugindata {
 }
 
 1;
-__END__
